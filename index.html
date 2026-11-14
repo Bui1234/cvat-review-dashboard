@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CVAT Review Dashboard</title>
+
+<style>
+body{
+font-family:Segoe UI,sans-serif;
+background:#f4f6f9;
+margin:0;
+padding:20px;
+}
+
+h1{
+color:#1e3a8a;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.card h3{
+margin:0;
+font-size:14px;
+color:#666;
+}
+
+.card p{
+font-size:32px;
+font-weight:bold;
+margin:10px 0 0;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:#fff;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+th{
+background:#2563eb;
+color:white;
+padding:12px;
+}
+
+td{
+border-bottom:1px solid #eee;
+padding:10px;
+vertical-align:top;
+}
+
+select,input,textarea{
+width:100%;
+padding:6px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+textarea{
+height:70px;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 20px;
+margin-top:15px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.pass{
+color:#16a34a;
+font-weight:bold;
+}
+
+.reject{
+color:#dc2626;
+font-weight:bold;
+}
+
+.section{
+margin-top:25px;
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+</style>
+</head>
+<body>
+
+<h1>🚗 CVAT Annotation Review Dashboard</h1>
+
+<div class="dashboard">
+<div class="card">
+<h3>Total Jobs</h3>
+<p>5</p>
+</div>
+
+<div class="card">
+<h3>Approved</h3>
+<p id="approved">0</p>
+</div>
+
+<div class="card">
+<h3>Rejected</h3>
+<p id="rejected">0</p>
+</div>
+
+<div class="card">
+<h3>Pending</h3>
+<p id="pending">5</p>
+</div>
+</div>
+
+<table id="reviewTable">
+
+<thead>
+<tr>
+<th>Job</th>
+<th>Annotator</th>
+<th>Reviewer</th>
+<th>Status</th>
+<th>Critical</th>
+<th>Major</th>
+<th>Minor</th>
+<th>Result</th>
+<th>Issues</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>#47</td>
+<td>2A202603033</td>
+<td>2A202603118</td>
+<td>
+<select onchange="saveData()">
+<option>Pending</option>
+<option>Reviewing</option>
+<option>Approved</option>
+<option>Rejected</option>
+</select>
+</td>
+
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td class="result"></td>
+<td><textarea onchange="saveData()"></textarea></td>
+</tr>
+
+<tr>
+<td>#48</td>
+<td>2A202603118</td>
+<td>2A202603169</td>
+<td>
+<select onchange="saveData()">
+<option>Pending</option>
+<option>Reviewing</option>
+<option>Approved</option>
+<option>Rejected</option>
+</select>
+</td>
+
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td class="result"></td>
+<td><textarea onchange="saveData()"></textarea></td>
+</tr>
+
+<tr>
+<td>#49</td>
+<td>2A202603169</td>
+<td>2A202603211</td>
+<td>
+<select onchange="saveData()">
+<option>Pending</option>
+<option>Reviewing</option>
+<option>Approved</option>
+<option>Rejected</option>
+</select>
+</td>
+
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td class="result"></td>
+<td><textarea onchange="saveData()"></textarea></td>
+</tr>
+
+<tr>
+<td>#50</td>
+<td>2A202603211</td>
+<td>2A202603322</td>
+<td>
+<select onchange="saveData()">
+<option>Pending</option>
+<option>Reviewing</option>
+<option>Approved</option>
+<option>Rejected</option>
+</select>
+</td>
+
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td class="result"></td>
+<td><textarea onchange="saveData()"></textarea></td>
+</tr>
+
+<tr>
+<td>#51</td>
+<td>2A202603322</td>
+<td>2A202603033</td>
+<td>
+<select onchange="saveData()">
+<option>Pending</option>
+<option>Reviewing</option>
+<option>Approved</option>
+<option>Rejected</option>
+</select>
+</td>
+
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td><input type="number" value="0" onchange="saveData()"></td>
+<td class="result"></td>
+<td><textarea onchange="saveData()"></textarea></td>
+</tr>
+
+</tbody>
+</table>
+
+<div class="section">
+
+<h2>✅ Checklist Reviewer</h2>
+
+<ul>
+<li>Bounding Box đúng đối tượng</li>
+<li>Không thiếu Vehicle</li>
+<li>Không thiếu Traffic Sign</li>
+<li>Không thiếu Traffic Light</li>
+<li>Drivable Area chính xác</li>
+<li>Lane Marking đúng loại</li>
+<li>Không sai class</li>
+<li>Occluded đúng</li>
+<li>Truncated đúng</li>
+<li>Annotation nhất quán</li>
+</ul>
+
+<h2>📌 Quy tắc PASS</h2>
+
+<ul>
+<li>0 Critical</li>
+<li>Major ≤ 3</li>
+<li>Minor ≤ 10</li>
+</ul>
+
+</div>
+
+<button onclick="exportCSV()">📥 Export CSV Report</button>
+
+<script>
+
+function evaluateRows(){
+
+let approved=0;
+let rejected=0;
+
+document.querySelectorAll("tbody tr").forEach(row=>{
+
+let critical=
+parseInt(row.cells[4].querySelector("input").value)||0;
+
+let major=
+parseInt(row.cells[5].querySelector("input").value)||0;
+
+let minor=
+parseInt(row.cells[6].querySelector("input").value)||0;
+
+let resultCell=row.querySelector(".result");
+
+if(critical>0 || major>3){
+
+resultCell.innerHTML=
+'<span class="reject">REJECT</span>';
+
+rejected++;
+
+}else if(minor<=10){
+
+resultCell.innerHTML=
+'<span class="pass">PASS</span>';
+
+approved++;
+
+}
+
+});
+
+document.getElementById("approved").textContent=
+approved;
+
+document.getElementById("rejected").textContent=
+rejected;
+
+document.getElementById("pending").textContent=
+5-approved-rejected;
+}
+
+function saveData(){
+
+const values=[];
+
+document.querySelectorAll(
+"#reviewTable input,#reviewTable select,#reviewTable textarea"
+).forEach(el=>{
+
+values.push(el.value);
+
+});
+
+localStorage.setItem(
+"cvat_review_data",
+JSON.stringify(values)
+);
+
+evaluateRows();
+}
+
+function loadData(){
+
+let raw=localStorage.getItem(
+"cvat_review_data"
+);
+
+if(!raw) return;
+
+let values=JSON.parse(raw);
+
+document.querySelectorAll(
+"#reviewTable input,#reviewTable select,#reviewTable textarea"
+).forEach((el,index)=>{
+
+if(values[index]!=null)
+el.value=values[index];
+
+});
+
+evaluateRows();
+}
+
+function exportCSV(){
+
+let csv=
+"Job,Annotator,Reviewer,Status,Critical,Major,Minor,Result\n";
+
+document.querySelectorAll("tbody tr")
+.forEach(row=>{
+
+let cols=[];
+
+cols.push(row.cells[0].innerText);
+cols.push(row.cells[1].innerText);
+cols.push(row.cells[2].innerText);
+
+cols.push(
+row.cells[3].querySelector("select").value
+);
+
+cols.push(
+row.cells[4].querySelector("input").value
+);
+
+cols.push(
+row.cells[5].querySelector("input").value
+);
+
+cols.push(
+row.cells[6].querySelector("input").value
+);
+
+cols.push(
+row.cells[7].innerText
+);
+
+csv+=cols.join(",")+"\n";
+
+});
+
+let blob=new Blob([csv],
+{type:'text/csv'});
+
+let a=document.createElement('a');
+
+a.href=URL.createObjectURL(blob);
+
+a.download="review-report.csv";
+
+a.click();
+}
+
+loadData();
+evaluateRows();
+
+</script>
+
+</body>
+</html>
